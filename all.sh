@@ -7,8 +7,9 @@ read -p "Enter the subdomain file name (including .txt extension): " subdomain_f
 read -p "Enter the variable name: " variable_name
 
 output_directory="output"
-gau_output="$output_directory/$variable_name.gau.txt"
 katana_output="$output_directory/$variable_name.katana.txt"
+gau_output="$output_directory/$variable_name.gau.txt"
+waybackurls="$output_directory/$variable_name.waybackurls.txt"
 final_output="$output_directory/$variable_name.final.txt"
 
 # Create output directory if it doesn't exist
@@ -19,12 +20,17 @@ echo -e "\e[1m\e[32mRunning katana...\e[0m"
 cat "$subdomain_file" | katana > "$katana_output"
 echo -e "\e[1m\e[32mKatana completed. Output saved to $katana_output\e[0m"
 
-# Run gau command and save output to variable_name.gau.txt
+# Run gauplus command and save output to variable_name.gau.txt
 echo -e "\e[1m\e[32mRunning gau...\e[0m"
-cat "$subdomain_file" | gau > "$gau_output"
+cat "$subdomain_file" | gauplus > "$gau_output"
 echo -e "\e[1m\e[32mGau completed. Output saved to $gau_output\e[0m"
 
+# Run waybackurl command and save output to variable_name.waybackurls.txt
+echo -e "\e[1m\e[32mRunning waybackurl...\e[0m"
+cat "$subdomain_file" | waybackurls > "$waybackurls_output"
+echo -e "\e[1m\e[32mwaybackurl completed. Output saved to $waybackurls_output\e[0m"
+
 # Combine the results into variable_name.final.txt
-cat "$katana_output" "$gau_output" > "$final_output"
+cat "$katana_output" "$gau_output" "$waybackurls_output" > "$final_output"
 
 echo -e "\e[1m\e[32mResults saved to $final_output\e[0m"
