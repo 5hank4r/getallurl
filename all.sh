@@ -9,8 +9,8 @@ read -p "Enter the variable name: " Target_Name
 output_directory="output"
 katana_output="$output_directory/$variable_name.katana.txt"
 gau_output="$output_directory/$variable_name.gau.txt"
-gospider="$output_directory/$variable_name.gospider.txt"
-waybackurls="$output_directory/$variable_name.waybackurls.txt"
+gospider_output="$output_directory/$variable_name.gospider.txt"
+waybackurls_output="$output_directory/$variable_name.waybackurls.txt"
 final_output="$output_directory/$variable_name.final.txt"
 
 
@@ -29,8 +29,8 @@ echo -e "\e[1m\e[32mGau completed. Output saved to $gau_output\e[0m"
 
 #Run GoSpider
 echo -e "\e[1m\e[32mRunning GoSpider...\e[0m"
-gospider -S $subdomain_file -c 10 -d 1 -a | grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*" > "$gospider_output" 
-echo -e "\e[1m\e[32mGoSpider completed. Output saved to $GoSpider_output\e[0m"
+gospider -S $subdomain_file -c 10 -d 1 -a | grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*" | tee "$gospider_output" 
+echo -e "\e[1m\e[32mGoSpider completed. Output saved to $gospider_output\e[0m"
 
 # Run waybackurl command and save output to variable_name.waybackurls.txt
 echo -e "\e[1m\e[32mRunning waybackurl...\e[0m"
